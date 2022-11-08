@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPressed" prefHeight="412.0" prefWidth="596.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="men.brakh.graphicseditor.controller.Controller">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="387.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <content>
+            <AnchorPane maxHeight="720.0" maxWidth="1080.0" prefHeight="720.0" prefWidth="1080.0" style="-fx-border-color: gray; -fx-background-color: white;">
+               <children>
+                  <Canvas fx:id="canvasMain" height="720.0" layoutX="67.0" layoutY="58.0" onMouseDragged="#canvasOnMouseDragged" onMouseMoved="#canvasOnMouseMoved" onMousePressed="#canvasOnMousePressed" onMouseReleased="#canvasOnMouseReleased" onMouseClicked="#canvasDoubleClick" width="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+         <children>
+            <ListView fx:id="lwFigures" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane layoutX="-14.0" layoutY="312.0" prefHeight="130.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <ColorPicker fx:id="cpPen" layoutX="68.0" layoutY="15.0" onAction="#penColorSelected" prefHeight="73.0" prefWidth="82.0" style="-fx-color-label-visible: false; -fx-color-rect-width: 50px; -fx-color-rect-height: 50px; -fx-background-color: none;" />
+                  <Slider fx:id="sliderPenWidth" layoutX="17.0" layoutY="87.0" max="40.0" onMouseReleased="#sliderPenWidthChanged" prefHeight="15.0" prefWidth="167.0" value="4.0" />
+                  <Label fx:id="lblPenWidth" alignment="CENTER" layoutX="17.0" layoutY="108.0" prefHeight="15.0" prefWidth="167.0" text="4" textAlignment="CENTER" />
+                  <Label layoutX="80.0" layoutY="6.0" text="Color" />
+                  <Label layoutX="41.0" layoutY="108.0" text="Size :" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <MenuBar GridPane.columnSpan="2">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#menuNewClicked" text="New" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuSaveAsClicked" text="Save as" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuOpenClicked" text="Open" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem fx:id="menuRedo" disable="true" mnemonicParsing="false" onAction="#menuRedoClicked" text="Redo" />
+                  <MenuItem fx:id="menuUndo" disable="true" mnemonicParsing="false" onAction="#menuUndoClicked" text="Undo" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</GridPane>
