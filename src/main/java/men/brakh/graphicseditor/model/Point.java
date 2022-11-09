@@ -12,30 +12,6 @@ public class Point {
 
     private int x;
     private int y;
-    private List<Integer> pointX = new ArrayList<Integer>();
-
-    public List<Integer> getPointX() {
-        return pointX;
-    }
-
-    public void setPointX(List<Integer> pointX) {
-        this.pointX = pointX;
-    }
-
-    private List<Integer> pointY = new ArrayList<Integer>();
-
-    public List<Integer> getPointY() {
-        return pointY;
-    }
-
-    public void setPointY(List<Integer> pointY) {
-        this.pointY = pointY;
-    }
-
-
-
-
-
 
     public Point(int x, int y) {
         this.x = x;

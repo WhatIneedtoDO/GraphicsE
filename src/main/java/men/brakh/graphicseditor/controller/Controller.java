@@ -20,6 +20,7 @@ import men.brakh.graphicseditor.model.canvas.AbstractCanvas;
 import men.brakh.graphicseditor.model.canvas.impl.JavaFXCanvas;
 import men.brakh.graphicseditor.model.changes.ChangeType;
 import men.brakh.graphicseditor.model.changes.ChangesStack;
+import men.brakh.graphicseditor.model.figure.AbstractLine;
 import men.brakh.graphicseditor.model.figure.Figure;
 import men.brakh.graphicseditor.model.figure.FigureFactory;
 import men.brakh.graphicseditor.model.figure.impl.Rectangle;
@@ -36,6 +37,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
+import static men.brakh.graphicseditor.model.Mode.MODE_CREATE;
 import static men.brakh.graphicseditor.model.PointType.POINT_INSIDE;
 
 public class Controller {
@@ -196,7 +198,7 @@ public class Controller {
                 createdFigure -> {
                     prevPoint = clickedPoint; // Обновляем предыдущие координаты
                     currPointType = createdFigure.checkPoint(clickedPoint); // Тип точки при создании
-                    mode = Mode.MODE_CREATE; // Меняем режим на создание фигуры
+                    mode = MODE_CREATE; // Меняем режим на создание фигуры
                     currentFigure = createdFigure;
                 }
         );
@@ -260,41 +262,28 @@ public class Controller {
 
     HashMap<List<Figure>, Point> clickedPoints = new HashMap<List<Figure>, Point>();
 
-
-
-
     @FXML
     public void canvasDoubleClick(MouseEvent event) {
 
         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+            mode = MODE_CREATE;
             Point clickedPoint = new Point(event.getX(), event.getY());
             PointType check = currentFigure.checkPoint(clickedPoint);
-            List<Figure> selectedFigures = canvas.getSelected();
 
-
-            //Optional<Figure> figureOptional = canvas.getFigureAtPoint(clickedPoint);
-
-            //разделить текущую и предыдущую фигруы
             if (check.equals(POINT_INSIDE)) {
 
-                clickedPoints.put(canvas.getSelected(),clickedPoint);
+                clickedPoints.put(canvas.getSelected(), clickedPoint);
                 canvas.setClickedPoints(clickedPoints);
             }
+
             menuUndo.setDisable(false);
 
-            System.out.println( "\n getSelected : " + canvas.getSelected() + "\n Keys in map : " + clickedPoints.keySet() );
-            System.out.println("contains need key? ::: " +clickedPoints.containsKey(canvas.getSelected()) + "::::");
+            System.out.println("\n getSelected : " + canvas.getSelected() + "\n Keys in map : " + clickedPoints.keySet());
+            System.out.println("contains need key? ::: " + clickedPoints.containsKey(canvas.getSelected()) + "::::");
         }
         canvas.redraw();
-    }
 
-   /* public HashMap<Optional<Figure>, List<Integer>> getClickedPointsX() {
-        return clickedPointsX;
     }
-
-    public HashMap<Optional<Figure>, List<Integer>> getClickedPointsY() {
-        return clickedPointsY;
-    }*/
 
 
     @FXML

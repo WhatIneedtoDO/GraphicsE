@@ -31,34 +31,43 @@ public class StraightLine extends AbstractLine implements Resizable, Movable, Se
     }
 
     HashMap<List<Figure>, Point> newLinepoints = canvas.getClickedPoints();
+
     @Override
     public void draw() {
         if (points.size() < 2) {
             return;
         }
-      if (newLinepoints.containsKey(canvas.getSelected())){
-          Point point3 = newLinepoints.get(canvas.getSelected());
-          Point point1 = points.get(0);
-          Point point2 = points.get(1);
-          System.out.println("contains need key? ::: " + newLinepoints.containsKey(canvas.getSelected()) + "::::" + "\n get values from key : "
-                  + point3);
-          canvas.withColorSaving(getBushColor(), getPenColor(), getPenWidth(), () -> {
-              canvas.drawLine(point1, point3);
-              canvas.drawLine(point3,point2);
+        if (newLinepoints.containsKey(canvas.getSelected())) {
 
-              return null;
-          });
+            points.add(2,newLinepoints.get(canvas.getSelected()));
 
-      }
+            Point point1 = points.get(0);
+            Point point2 = points.get(1);
+            Point pointI = points.get(2);
+            System.out.println("Point3 = " + pointI);
+            System.out.println("Point2 = " + point2);
+            System.out.println("Point1 = " + point1);
+            System.out.println("Points : " + points.size()+ "\n NewLinepoints : " + newLinepoints.size());
 
-        Point point1 = points.get(0);
-        Point point2 = points.get(1);
 
-        canvas.withColorSaving(getBushColor(), getPenColor(), getPenWidth(), () -> {
-            canvas.drawLine(point1, point2);
-            return null;
-        });
+            canvas.withColorSaving(getBushColor(), getPenColor(), getPenWidth(), () -> {
+                canvas.drawLine(point1, pointI);
+                canvas.drawLine(point2, pointI);
 
+
+                return null;
+            });
+
+        } else {
+
+            Point point1 = points.get(0);
+            Point point2 = points.get(1);
+
+            canvas.withColorSaving(getBushColor(), getPenColor(), getPenWidth(), () -> {
+                canvas.drawLine(point1, point2);
+                return null;
+            });
+        }
 
 
     }
