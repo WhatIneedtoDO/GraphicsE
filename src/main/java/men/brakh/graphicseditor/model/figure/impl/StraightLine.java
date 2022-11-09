@@ -29,9 +29,7 @@ public class StraightLine extends AbstractLine implements Resizable, Movable, Se
     public void addPoint(Point point) {
 
     }
-
     HashMap<List<Figure>, Point> newLinepoints = canvas.getClickedPoints();
-
     @Override
     public void draw() {
         if (points.size() < 2) {

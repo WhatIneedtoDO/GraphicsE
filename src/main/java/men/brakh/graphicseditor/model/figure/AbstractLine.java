@@ -64,6 +64,8 @@ public abstract class AbstractLine implements Figure, TextSerializible {
 
         List<Point> newPoints = new ArrayList<>();
         line.points.forEach(point -> newPoints.add(point.copy()));
+
+
         this.points = newPoints;
     }
 
@@ -114,6 +116,7 @@ public abstract class AbstractLine implements Figure, TextSerializible {
                 return PointType.POINT_INSIDE;
             }
         }
+        System.out.println("Points in AL : "+ points.size());
         return PointType.UNKNOWN_POINT;
     }
 

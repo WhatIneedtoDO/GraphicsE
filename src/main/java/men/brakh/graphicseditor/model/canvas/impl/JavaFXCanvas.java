@@ -94,7 +94,7 @@ public class JavaFXCanvas extends AbstractCanvas {
     @Override
     public void drawLine(Point point1, Point point2) {
             gc.strokeLine(point1.getX(), point1.getY(), point2.getX(), point2.getY());
-
+            //попробовать переопределить здесь
     }
 
     @Override
