@@ -21,13 +21,11 @@ public abstract class AbstractLine implements Figure, TextSerializible {
     protected AbstractCanvas canvas;
 
     protected List<Point> points = new ArrayList<>();
-    protected HashMap<Figure,Point> figurePointHashMap = new HashMap<>();
-
-
+    protected List<Point> lineP = new ArrayList<>();
     public AbstractLine(AbstractCanvas canvas, Point startPoint) {
         this.canvas = canvas;
         points.add(startPoint);
-
+        lineP.add(startPoint);
         this.penColor = canvas.getPenColor();
         this.penWidth = canvas.getPenWidth();
 
@@ -41,7 +39,7 @@ public abstract class AbstractLine implements Figure, TextSerializible {
         AbstractLine newLine = null;
         try {
             newLine = this.getClass().getConstructor(AbstractCanvas.class, Point.class)
-                    .newInstance(this.canvas, this.points.get(0).copy());
+                    .newInstance(this.canvas, this.lineP.get(0).copy());
 
             newLine.assign(this);
 
@@ -63,10 +61,11 @@ public abstract class AbstractLine implements Figure, TextSerializible {
         this.penWidth = line.penWidth;
 
         List<Point> newPoints = new ArrayList<>();
-        line.points.forEach(point -> newPoints.add(point.copy()));
+        line.lineP.forEach(point -> newPoints.add(point.copy()));
 
 
-        this.points = newPoints;
+
+        this.lineP = newPoints;
     }
 
 
@@ -76,7 +75,7 @@ public abstract class AbstractLine implements Figure, TextSerializible {
      */
     public void addPoint(Point point) {
         points.add(point);
-
+        lineP.add(point);
     }
 
     /**
@@ -86,7 +85,7 @@ public abstract class AbstractLine implements Figure, TextSerializible {
      */
     @Override
     public PointType checkPoint(Point point) {
-        for (Point linePoint : points) {
+        for (Point linePoint : lineP) {
             if(linePoint.equals(point)) {
                 return PointType.POINT_NODE;
             }
@@ -116,7 +115,6 @@ public abstract class AbstractLine implements Figure, TextSerializible {
                 return PointType.POINT_INSIDE;
             }
         }
-        System.out.println("Points in AL : "+ points.size());
         return PointType.UNKNOWN_POINT;
     }
 

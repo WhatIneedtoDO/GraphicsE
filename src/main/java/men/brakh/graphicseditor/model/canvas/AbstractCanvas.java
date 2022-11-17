@@ -19,14 +19,20 @@ public abstract class AbstractCanvas {
      * Множество выделенных фигур. Hashcode && Equals у фигур стандартные, все сравнения - по ссылкам
      */
     private Set<Figure> selectedFigures = new HashSet<>();
+    protected HashMap<List<Figure>, ArrayList<Point>> clickedPoints = new HashMap<>();
+    protected ArrayList<Point> lineP = new ArrayList<>();
 
-    public void setClickedPoints(HashMap<List<Figure>, Point> clickedPoints) {
+    public ArrayList<Point> getLineP() {
+        return lineP;
+    }
+    public void setLineP(ArrayList<Point> lineP) {
+        this.lineP = lineP;
+    }
+    public void setClickedPoints(HashMap<List<Figure>, ArrayList<Point>> clickedPoints) {
         this.clickedPoints = clickedPoints;
     }
 
-    protected HashMap<List<Figure>, Point> clickedPoints = new HashMap<>();
-
-    public HashMap<List<Figure>, Point> getClickedPoints() {
+    public HashMap<List<Figure>, ArrayList<Point>> getClickedPoints() {
         return this.clickedPoints;
     }
 

@@ -29,24 +29,27 @@ public class StraightLine extends AbstractLine implements Resizable, Movable, Se
     public void addPoint(Point point) {
 
     }
-    HashMap<List<Figure>, Point> newLinepoints = canvas.getClickedPoints();
+    HashMap<List<Figure>, ArrayList<Point>> clickedPoints = canvas.getClickedPoints();
+
     @Override
     public void draw() {
         if (points.size() < 2) {
             return;
         }
-        if (newLinepoints.containsKey(canvas.getSelected())) {
 
-            points.add(2,newLinepoints.get(canvas.getSelected()));
+        if (clickedPoints.containsKey(canvas.getSelected())) {
+            ArrayList<Point> lineP = canvas.getLineP();
+            int i = lineP.size()-1;
+            int number = points.size()-1;
+            points.add(lineP.get(i));
 
             Point point1 = points.get(0);
             Point point2 = points.get(1);
-            Point pointI = points.get(2);
+            Point pointI = points.get(number);
+
             System.out.println("Point3 = " + pointI);
             System.out.println("Point2 = " + point2);
             System.out.println("Point1 = " + point1);
-            System.out.println("Points : " + points.size()+ "\n NewLinepoints : " + newLinepoints.size());
-
 
             canvas.withColorSaving(getBushColor(), getPenColor(), getPenWidth(), () -> {
                 canvas.drawLine(point1, pointI);
@@ -55,7 +58,7 @@ public class StraightLine extends AbstractLine implements Resizable, Movable, Se
 
                 return null;
             });
-
+            System.out.println("Points : " + points.size()+ "\n NewLinepoints : " + clickedPoints.size() + "\n numbers elements = " + points);
         } else {
 
             Point point1 = points.get(0);
