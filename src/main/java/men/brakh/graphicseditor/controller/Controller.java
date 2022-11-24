@@ -259,12 +259,8 @@ public class Controller {
         }
     }
 
-
-    HashMap<List<Figure>,ArrayList<Point> > clickedPoints = new HashMap<>();
-
     @FXML
     public void canvasDoubleClick(MouseEvent event) {
-        ArrayList<Point> lineP = new ArrayList<>();
 
         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
             mode = MODE_CREATE;
@@ -273,19 +269,10 @@ public class Controller {
 
             if (check.equals(POINT_INSIDE)) {
 
-                    lineP.add(clickedPoint);
-                    clickedPoints.put(canvas.getSelected(), lineP);
-
-
-                canvas.setLineP(lineP);
-                canvas.setClickedPoints(clickedPoints);
+                canvas.addToList(currentFigure,clickedPoint);
 
             }
-
             menuUndo.setDisable(false);
-
-            System.out.println("\n getSelected : " + canvas.getSelected() + "\n Keys in map : " + clickedPoints.keySet());
-            System.out.println("contains need key? ::: " + clickedPoints.containsKey(canvas.getSelected()) + "::::");
         }
         canvas.getSelected().forEach(figure -> changesStack.add(ChangeType.CHANGE_MOVE, figure));
         canvas.redraw();

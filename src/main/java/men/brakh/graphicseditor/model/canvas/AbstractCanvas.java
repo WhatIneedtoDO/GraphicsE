@@ -18,23 +18,33 @@ public abstract class AbstractCanvas {
     /**
      * Множество выделенных фигур. Hashcode && Equals у фигур стандартные, все сравнения - по ссылкам
      */
-    private Set<Figure> selectedFigures = new HashSet<>();
-    protected HashMap<List<Figure>, ArrayList<Point>> clickedPoints = new HashMap<>();
-    protected ArrayList<Point> lineP = new ArrayList<>();
 
-    public ArrayList<Point> getLineP() {
-        return lineP;
+    private Set<Figure> selectedFigures = new HashSet<>();
+    protected HashMap<List <Figure>, ArrayList<Point>> clickedPoints = new HashMap<>();
+
+    public synchronized void addToList (Figure figure, Point point ) {
+        ArrayList<Point> lineP = clickedPoints.get(figure);
+        if (lineP == null) {
+            lineP = new ArrayList<Point>();
+            lineP.add(point);
+            System.out.println("lineP values : " + lineP);
+            clickedPoints.put(getSelected(), lineP);
+            System.out.println("hashmap add values : " + clickedPoints);
+        } else {
+            if (!lineP.contains(point)) lineP.add(point);
+        }
+        System.out.println("hashmap contains : " + clickedPoints);
     }
-    public void setLineP(ArrayList<Point> lineP) {
-        this.lineP = lineP;
-    }
+
+
+
     public void setClickedPoints(HashMap<List<Figure>, ArrayList<Point>> clickedPoints) {
         this.clickedPoints = clickedPoints;
     }
-
     public HashMap<List<Figure>, ArrayList<Point>> getClickedPoints() {
-        return this.clickedPoints;
+        return clickedPoints;
     }
+
 
     /**
      * Выполнение метода с сохранением цвета полотна

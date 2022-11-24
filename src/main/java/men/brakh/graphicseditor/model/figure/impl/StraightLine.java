@@ -14,6 +14,7 @@ import men.brakh.graphicseditor.model.figure.intf.Selectable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class StraightLine extends AbstractLine implements Resizable, Movable, Selectable {
     private Configuration config = Configuration.getInstance();
@@ -29,8 +30,7 @@ public class StraightLine extends AbstractLine implements Resizable, Movable, Se
     public void addPoint(Point point) {
 
     }
-    HashMap<List<Figure>, ArrayList<Point>> clickedPoints = canvas.getClickedPoints();
-
+    protected HashMap<List <Figure>, ArrayList<Point>> clickedPoints = canvas.getClickedPoints();
     @Override
     public void draw() {
         if (points.size() < 2) {
@@ -38,27 +38,30 @@ public class StraightLine extends AbstractLine implements Resizable, Movable, Se
         }
 
         if (clickedPoints.containsKey(canvas.getSelected())) {
-            ArrayList<Point> lineP = canvas.getLineP();
-            int i = lineP.size()-1;
-            int number = points.size()-1;
-            points.add(lineP.get(i));
+            ArrayList<Point> myPoints = clickedPoints.get(canvas.getSelected());
 
             Point point1 = points.get(0);
             Point point2 = points.get(1);
-            Point pointI = points.get(number);
 
-            System.out.println("Point3 = " + pointI);
+
             System.out.println("Point2 = " + point2);
             System.out.println("Point1 = " + point1);
 
             canvas.withColorSaving(getBushColor(), getPenColor(), getPenWidth(), () -> {
-                canvas.drawLine(point1, pointI);
-                canvas.drawLine(point2, pointI);
+                for (int i = 0 ; i < myPoints.size();i++) {
 
+                        int number = points.size() - 1;
+                        points.add(myPoints.get(i));
+                        points.add(myPoints.get(i));
 
+                    canvas.drawLine(point1, points.get(number));
+                    canvas.drawLine(points.get(number), point2);
+                }
                 return null;
             });
-            System.out.println("Points : " + points.size()+ "\n NewLinepoints : " + clickedPoints.size() + "\n numbers elements = " + points);
+
+            System.out.println("::::"+clickedPoints.containsKey(canvas.getSelected())+"::::");
+             System.out.println("Points : " + points.size()+ "\n NewLinepoints : " + clickedPoints.size() + "\n myPoints = " + myPoints );
         } else {
 
             Point point1 = points.get(0);
@@ -69,7 +72,7 @@ public class StraightLine extends AbstractLine implements Resizable, Movable, Se
                 return null;
             });
         }
-
+        System.out.println("::::"+clickedPoints.containsKey(canvas.getSelected())+"::::");
 
     }
 
